@@ -122,7 +122,7 @@ enum emul_t  {EMUL_NONE, EMUL_WEMO, EMUL_HUE, EMUL_MAX};
 
 #define INPUT_BUFFER_SIZE      100          // Max number of characters in serial buffer
 #define TOPSZ                  60           // Max number of characters in topic string
-#define MESSZ                  240          // Max number of characters in JSON message string
+#define MESSZ                  1000          // Max number of characters in JSON message string
 #define LOGSZ                  128          // Max number of characters in log string
 #ifdef USE_MQTT_TLS
   #define MAX_LOG_LINES        10           // Max number of lines in weblog
@@ -264,7 +264,8 @@ uint8_t led_inverted[4] = { 0 };      // LED inverted flag (1 = (0 = On, 1 = Off
 uint8_t swt_flg = 0;                  // Any external switch configured
 uint8_t dht_type = 0;                 // DHT type (DHT11, DHT21 or DHT22)
 uint8_t hlw_flg = 0;                  // Power monitor configured
-uint8_t i2c_flg = 0;                  // I2C configured
+uint8_t i2c_flg = 0;                  // I2C master configured
+uint8_t i2c_slave_flg = 0;            // I2C slave configured
 
 boolean mDNSbegun = false;
 
@@ -1446,7 +1447,14 @@ void sensors_mqttPresent(char* svalue, uint16_t ssvalue, uint8_t* djson)
     bh1750_mqttPresent(svalue, ssvalue, djson);
 #endif  // USE_BH1750
   }
-#endif  // USE_I2C      
+#endif  // USE_I2C
+#ifdef USE_I2C_SLAVE
+  if (i2c_slave_flg) {
+#ifdef USE_WION_POWER
+    wion_mqttPresent(svalue, ssvalue, djson);
+#endif  //USE_WION_POWER
+  }
+#endif  // USE_I2C_SLAVE
   snprintf_P(svalue, ssvalue, PSTR("%s}"), svalue);
 }
 
@@ -1981,6 +1989,15 @@ void GPIO_init()
 #ifdef USE_IR_REMOTE
   if (pin[GPIO_IRSEND] < 99) ir_send_init();
 #endif // USE_IR_REMOTE
+
+#ifdef USE_I2C_SLAVE
+  i2c_slave_flg = ((pin[GPIO_I2C_SCL_SLAVE] < 99) && (pin[GPIO_I2C_SDA_SLAVE] < 99));
+  if (i2c_slave_flg) {
+    pinMode(GPIO_I2C_SDA_SLAVE,INPUT_PULLUP);
+    Wire.begin(pin[GPIO_I2C_SDA_SLAVE],pin[GPIO_I2C_SCL_SLAVE]);
+  }
+#endif
+  
 }
 
 void setup()
@@ -2088,3 +2105,4 @@ void loop()
 //  yield();     // yield == delay(0), delay contains yield, auto yield in loop
   delay(sleep);  // https://github.com/esp8266/Arduino/issues/2021
 }
+

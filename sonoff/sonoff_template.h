@@ -17,6 +17,8 @@ enum upins_t {
   GPIO_SWT2,
   GPIO_SWT3,
   GPIO_SWT4,
+  GPIO_I2C_SCL_SLAVE,
+  GPIO_I2C_SDA_SLAVE,
   GPIO_SENSOR_END };
 
 // Text in webpage Module Parameters and commands GPIOS and GPIO
@@ -33,7 +35,9 @@ const char sensors[GPIO_SENSOR_END][9] PROGMEM = {
   "Switch1",
   "Switch2",
   "Switch3",
-  "Switch4" };
+  "Switch4",
+  "I2C SCLS",
+  "I2C SDAS" };
   
 // Programmer selectable GPIO functionality offset by user selectable GPIOs
 enum fpins_t {
@@ -286,14 +290,14 @@ const mytmplt modules[MAXMODULE] PROGMEM = {
   },
   { "wion",       // Sonoff Basic User Test
      GPIO_USER,        // GPIO00 Optional sensor (pm clock)
-     0,
-     GPIO_LED1,        // GPIO02 Green Led (1 = On, 0 = Off)
-     0, 0, 0, 0, 0, 0, 0, 0, 0,
+     GPIO_USER,
+     GPIO_USER,        // GPIO02 Green Led (1 = On, 0 = Off)
+     GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER, GPIO_USER,
      GPIO_USER,        // GPIO12 Optional sensor (pm data)
      GPIO_KEY1,        // GPIO13 Button
-     0,
+     GPIO_USER,
      GPIO_REL1,        // GPIO15 Relay (0 = Off, 1 = On)
-     0
+     GPIO_USER
   },
   { "User Test",       // Sonoff Basic User Test
      GPIO_KEY1,        // GPIO00 Button
@@ -309,4 +313,5 @@ const mytmplt modules[MAXMODULE] PROGMEM = {
      0, 0
   }
 };
+
 

@@ -17,21 +17,21 @@
 #define SAVE_STATE             1                 // [SaveState] Save changed power state to Flash (0 = disable, 1 = enable)
 
 // -- Wifi ----------------------------------------
-#define STA_SSID1              "indebuurt1"      // [Ssid1] Wifi SSID
-#define STA_PASS1              "VnsqrtnrsddbrN"  // [Password1] Wifi password
-#define STA_SSID2              "indebuurt2"      // [Ssid2] Optional alternate AP Wifi SSID
-#define STA_PASS2              "VnsqrtnrsddbrN"  // [Password2] Optional alternate AP Wifi password
-#define WIFI_CONFIG_TOOL       WIFI_WPSCONFIG    // [WifiConfig] Default tool if wifi fails to connect
+#define STA_SSID1              "DDJP2"      // [Ssid1] Wifi SSID
+#define STA_PASS1              "c0f3teorm3"  // [Password1] Wifi password
+#define STA_SSID2              "the_towed"      // [Ssid2] Optional alternate AP Wifi SSID
+#define STA_PASS2              "e570e570"  // [Password2] Optional alternate AP Wifi password
+#define WIFI_CONFIG_TOOL       WIFI_RETRY    // [WifiConfig] Default tool if wifi fails to connect
                                                  //   (WIFI_RESTART, WIFI_SMARTCONFIG, WIFI_MANAGER, WIFI_WPSCONFIG, WIFI_RETRY)
 // -- Syslog --------------------------------------
-#define SYS_LOG_HOST           "domus1"          // [LogHost] (Linux) syslog host
+#define SYS_LOG_HOST           "10.0.0.100"          // [LogHost] (Linux) syslog host
 #define SYS_LOG_PORT           514               // [LogPort] default syslog UDP port
-#define SYS_LOG_LEVEL          LOG_LEVEL_NONE    // [SysLog]
-#define SERIAL_LOG_LEVEL       LOG_LEVEL_INFO    // [SerialLog]
+#define SYS_LOG_LEVEL          LOG_LEVEL_INFO    // [SysLog]
+#define SERIAL_LOG_LEVEL       LOG_LEVEL_NONE    // [SerialLog]
 #define WEB_LOG_LEVEL          LOG_LEVEL_INFO    // [WebLog]
 
 // -- Ota -----------------------------------------
-#define OTA_URL                "http://domus1:80/api/arduino/" PROJECT ".ino.bin"  // [OtaUrl]
+#define OTA_URL                "http://10.2.0.162:80/api/arduino/" PROJECT ".ino.bin"  // [OtaUrl]
 
 // -- MQTT ----------------------------------------
 #define MQTT_USE               1                 // [Mqtt] Select default MQTT use (0 = Off, 1 = On)
@@ -45,7 +45,7 @@
   #define MQTT_USER            "cloudmqttuser"      // [MqttUser] Mandatory user
   #define MQTT_PASS            "cloudmqttpassword"  // [MqttPassword] Mandatory password
 #else
-  #define MQTT_HOST            "domus1"          // [MqttHost]
+  #define MQTT_HOST            "10.6.0.0"          // [MqttHost]
   #define MQTT_PORT            1883              // [MqttPort] MQTT port (10123 on CloudMQTT)
   #define MQTT_USER            "DVES_USER"       // [MqttUser] Optional user
   #define MQTT_PASS            "DVES_PASS"       // [MqttPassword] Optional password
@@ -68,10 +68,10 @@
 #define MQTT_CMND_TOGGLE       "TOGGLE"          // Command to send when toggling (needs to be a string like "2" or "Toggle")
 
 // -- MQTT - Telemetry ----------------------------
-#define TELE_PERIOD            300               // [TelePeriod] Telemetry (0 = disable, 10 - 3600 seconds)
+#define TELE_PERIOD            60               // [TelePeriod] Telemetry (0 = disable, 10 - 3600 seconds)
 
 // -- MQTT - Domoticz -----------------------------
-#define USE_DOMOTICZ                             // Enable Domoticz (+7k code, +0.3k mem) - Disable by //
+//#define USE_DOMOTICZ                             // Enable Domoticz (+7k code, +0.3k mem) - Disable by //
   #define DOMOTICZ_IN_TOPIC      "domoticz/in"   // [DomoticzInTopic]
   #define DOMOTICZ_OUT_TOPIC     "domoticz/out"  // [DomoticzOutTopic]
   #define DOMOTICZ_UPDATE_TIMER  0               // [DomoticzUpdateTimer] Send relay status (0 = disable, 1 - 3600 seconds) (Optional)
@@ -86,9 +86,9 @@
     #define EMULATION            EMUL_NONE       // [Emulation] Select Belkin WeMo or Hue Bridge emulation (EMUL_NONE, EMUL_WEMO or EMUL_HUE)
 
 // -- mDNS ----------------------------------------
-#define USE_DISCOVERY                            // Enable mDNS for the following services (+8k code, +0.3k mem) - Disable by //
-  #define WEBSERVER_ADVERTISE                    // Provide access to webserver by name <Hostname>.local/
-  #define MQTT_HOST_DISCOVERY                    // Find MQTT host server (overrides MQTT_HOST if found)
+//#define USE_DISCOVERY                            // Enable mDNS for the following services (+8k code, +0.3k mem) - Disable by //
+//  #define WEBSERVER_ADVERTISE                    // Provide access to webserver by name <Hostname>.local/
+//  #define MQTT_HOST_DISCOVERY                    // Find MQTT host server (overrides MQTT_HOST if found)
 
 // -- Time - Up to three NTP servers in your region
 #define NTP_SERVER1            "pool.ntp.org"
@@ -113,10 +113,10 @@
 #define SWITCH_MODE            TOGGLE            // [SwitchMode] TOGGLE, FOLLOW, FOLLOW_INV, PUSHBUTTON or PUSHBUTTON_INV (the wall switch state)
 #define WS2812_LEDS            30                // [Pixels] Number of WS2812 LEDs to start with
 
-#define TEMP_CONVERSION        0                 // Convert temperature to (0 = Celsius or 1 = Fahrenheit)
-#define TEMP_RESOLUTION        1                 // Maximum number of decimals (0 - 3) showing sensor Temperature
-#define HUMIDITY_RESOLUTION    1                 // Maximum number of decimals (0 - 3) showing sensor Humidity
-#define PRESSURE_RESOLUTION    1                 // Maximum number of decimals (0 - 3) showing sensor Pressure
+#define TEMP_CONVERSION        1                 // Convert temperature to (0 = Celsius or 1 = Fahrenheit)
+#define TEMP_RESOLUTION        3                 // Maximum number of decimals (0 - 3) showing sensor Temperature
+#define HUMIDITY_RESOLUTION    3                 // Maximum number of decimals (0 - 3) showing sensor Humidity
+#define PRESSURE_RESOLUTION    3                 // Maximum number of decimals (0 - 3) showing sensor Pressure
 
 // -- Sensor code selection -----------------------
 //#define USE_DS18x20                              // Optional using OneWire library for multiple DS18B20 and/or DS18S20
@@ -125,6 +125,9 @@
   #define USE_BH1750                             // Add I2C code for BH1750 sensor
   #define USE_BMP                                // Add I2C code for BMP/BME280 sensor
   #define USE_HTU                                // Add I2C code for HTU21 sensor
+
+//#define USE_I2C_SLAVE
+//  #define USE_WION_POWER
 
 #define USE_IR_REMOTE                            // Send IR remote commands using library IRremoteESP8266 and ArduinoJson (+4k code, 0.3k mem)
 
@@ -140,4 +143,5 @@
 #if (ARDUINO < 10610)
   #error "This software is supported with Arduino IDE starting from 1.6.10 and ESP8266 Release 2.3.0"
 #endif
+
 

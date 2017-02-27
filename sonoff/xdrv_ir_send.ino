@@ -88,3 +88,4 @@ boolean ir_send_command(char *type, uint16_t index, char *dataBufUc, uint16_t da
   return serviced;
 }
 #endif  // USE_IR_REMOTE
+

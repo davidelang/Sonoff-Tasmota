@@ -437,6 +437,13 @@ void handleAjax2()
     tpage += bh1750_webPresent();
   }
 #endif  // USE_I2C    
+#ifdef USE_I2C_SLAVE
+  if (i2c_slave_flg) {
+#ifdef USE_WION_POWER
+    tpage += wion_webPresent();
+#endif
+  }
+#endif
   String page = "";
   if (tpage.length() > 0) {
     page += F("<table style='width:100%'>");
@@ -1377,3 +1384,4 @@ boolean isIp(String str)
   return true;
 }
 #endif  // USE_WEBSERVER
+

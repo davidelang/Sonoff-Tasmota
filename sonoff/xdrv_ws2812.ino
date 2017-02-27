@@ -589,3 +589,4 @@ boolean ws2812_command(char *type, uint16_t index, char *dataBuf, uint16_t data_
   return serviced;
 }
 #endif  // USE_WS2812
+
