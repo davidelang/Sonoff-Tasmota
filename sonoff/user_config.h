@@ -126,8 +126,8 @@
   #define USE_BMP                                // Add I2C code for BMP/BME280 sensor
   #define USE_HTU                                // Add I2C code for HTU21 sensor
 
-//#define USE_I2C_SLAVE
-//  #define USE_WION_POWER
+#define USE_I2C_SLAVE
+  #define USE_WION_POWER
 
 #define USE_IR_REMOTE                            // Send IR remote commands using library IRremoteESP8266 and ArduinoJson (+4k code, 0.3k mem)
 
