@@ -27,6 +27,8 @@ POSSIBILITY OF SUCH DAMAGE.
 #ifdef USE_WION_POWER
 
 byte wion_power_data[16],count;
+uint32_t wion_data2[4];
+
 
 uint16_t wion_readPower(void)
 {
@@ -40,7 +42,23 @@ uint16_t wion_readPower(void)
     if (Wire.available())
       wion_power_data[count++]=Wire.read();
     else
-      yield(); 
+      yield();
+  wion_data2[0] = wion_power_data[0];
+  wion_data2[0] = (wion_data2[0] <<8) + wion_power_data[1];
+  wion_data2[0] = (wion_data2[0] <<8) + wion_power_data[2];
+  wion_data2[0] = (wion_data2[0] <<8) + wion_power_data[3];
+  wion_data2[1] = wion_power_data[4];
+  wion_data2[1] = (wion_data2[1] <<8) + wion_power_data[5];
+  wion_data2[1] = (wion_data2[1] <<8) + wion_power_data[6];
+  wion_data2[1] = (wion_data2[1] <<8) + wion_power_data[7];
+  wion_data2[2] = wion_power_data[8];
+  wion_data2[2] = (wion_data2[2] <<8) + wion_power_data[9];
+  wion_data2[2] = (wion_data2[2] <<8) + wion_power_data[10];
+  wion_data2[2] = (wion_data2[2] <<8) + wion_power_data[11];
+  wion_data2[3] = wion_power_data[12];
+  wion_data2[3] = (wion_data2[3] <<8) + wion_power_data[13];
+  wion_data2[3] = (wion_data2[3] <<8) + wion_power_data[14];
+  wion_data2[3] = (wion_data2[3] <<8) + wion_power_data[15];
   return count;
 }
 
@@ -56,7 +74,8 @@ void wion_mqttPresent(char* svalue, uint16_t ssvalue, uint8_t* djson)
   if (l != 16) {
     snprintf_P(svalue, ssvalue, PSTR("%s, \"wion\":{\"shortRead\":%d}"), svalue, l);
   } else {
-    snprintf_P(svalue, ssvalue, PSTR("%s, \"wion\":{\"rawdata\":%X%X%X%X%X%X%X%X%X%X%X%X%X%X%X%X}"), svalue, wion_power_data[0], wion_power_data[1], wion_power_data[2], wion_power_data[3], wion_power_data[4], wion_power_data[5], wion_power_data[6], wion_power_data[7], wion_power_data[8], wion_power_data[9], wion_power_data[10], wion_power_data[11], wion_power_data[12], wion_power_data[13], wion_power_data[14], wion_power_data[15] );
+    snprintf_P(svalue, ssvalue, PSTR("%s, \"wion\":{\"rawdata\":%X%X%X%X %X%X%X%X %X%X%X%X %X%X%X%X}"), svalue, wion_power_data[0], wion_power_data[1], wion_power_data[2], wion_power_data[3], wion_power_data[4], wion_power_data[5], wion_power_data[6], wion_power_data[7], wion_power_data[8], wion_power_data[9], wion_power_data[10], wion_power_data[11], wion_power_data[12], wion_power_data[13], wion_power_data[14], wion_power_data[15] );
+    snprintf_P(svalue, ssvalue, PSTR("%s, \"wion2\":{\"data2\":%d %d %d %d}"), svalue, wion_data2[0], wion_data2[1], wion_data2[2], wion_data2[3] );
   }
   *djson = 1;
 #ifdef USE_DOMOTICZ
