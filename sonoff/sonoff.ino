@@ -1737,7 +1737,7 @@ void stateloop()
             do_cmnd_power(multipress, 2);    // Execute command internally
           }
         } else {
-          if (!sysCfg.button_restrict) {
+          if (!sysCfg.button_restrict && multipress > 2) {
             snprintf_P(scmnd, sizeof(scmnd), commands[multipress -3]);
             do_cmnd(scmnd);
           }
